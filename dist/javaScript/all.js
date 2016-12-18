@@ -1,3 +1,9 @@
+angular.module('neighborApp', []);
+
+angular.module('neighborApp').controller('mainCtrl', function($scope) {
+  
+})
+
 const express = require('express');
 
 const app = express();
