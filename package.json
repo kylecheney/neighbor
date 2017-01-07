@@ -27,5 +27,9 @@
     "gulp-concat": "^2.6.1",
     "gulp-sass": "^3.0.0",
     "massive": "^2.5.0"
+  },
+  "devDependencies": {
+    "browser-sync": "^2.18.5",
+    "gulp-nodemon": "^2.2.1"
   }
 }

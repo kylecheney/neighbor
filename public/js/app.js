@@ -1,19 +1,20 @@
 angular.module('neighborApp', ["ui.router"])
   .config(function($stateProvider, $urlRouterProvider){
     $stateProvider
-      .state('home', {
-        url: '/',
-        templateUrl: './views/chat.html',
-        controller: 'mainCtrl'
-      })
       .state('login', {
-        url: '/login',
+        url: '/',
         templateUrl: './views/login.html',
+        controller: 'loginCtrl'
+      })
+      .state('main', {
+        url: '/main',
+        templateUrl: './views/main.html',
         controller: 'mainCtrl'
       })
       .state('settings', {
         url: '/settings',
         templateUrl: './views/settings.html',
-        controller: 'mainCtrl'
+        controller: 'settingsCtrl'
       })
     })
+    
