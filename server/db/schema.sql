@@ -1,0 +1,3 @@
+CREATE TABLE MESSAGES (
+  message VARCHAR(255)
+);

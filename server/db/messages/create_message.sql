@@ -1,0 +1,3 @@
+INSERT INTO MESSAGES
+  (message)
+  VALUES ($1);
