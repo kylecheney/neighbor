@@ -1,15 +1,26 @@
-angular.module('neighborApp').controller('mainCtrl', function($scope, messageService, socket) {
+angular.module('neighborApp').controller('mainCtrl', function($scope, messageService) {
 
   $scope.postMessage = function (message) {
     messageService.postMessage(message).then(function(response) {
-      $scope.data = response;
+      console.log(response);
+      getMessages();
     })
   }
 
-  $scope.getMessages = function () {
-    messageService.getMessage().the(function(response) {
+  // const getMessages = messageService.getMessages().then(function(response) {
+  //   $scope.messages = response;
+  //   console.log($scope.messages)
+  // })
+
+  const getMessages = function () {
+    messageService.getMessages().then(function(response) {
       $scope.messages = response;
+      console.log($scope.messages)
     })
   }
+  getMessages();
 
+  // setInterval(function(){
+  //   $scope.getMessages();
+  // }, 1500)
 })

@@ -16,5 +16,6 @@ angular.module('neighborApp', ["ui.router"])
         templateUrl: './views/settings.html',
         controller: 'settingsCtrl'
       })
+
+    $urlRouterProvider.otherwise('/');
     })
-    

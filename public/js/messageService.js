@@ -1,4 +1,4 @@
-angular.module('neighborApp').service('messageService', function($http, $rootScope) {
+angular.module('neighborApp').service('messageService', function($http) {
 
 // var socket = io.connect();
 //   return {
@@ -26,19 +26,19 @@ angular.module('neighborApp').service('messageService', function($http, $rootSco
     return $http({
       method: "POST",
       url: "/main",
-      data: message
+      data: {message: message}
     }).then(function(response) {
-      return response;
+      return response.data;
     })
   }
 
-  this.getMessage = function () {
+  this.getMessages = function () {
     return $http({
       method: "GET",
       url: "/main"
     }).then(function(response) {
       return response.data;
     })
-  }
+  };
 
-})
+});

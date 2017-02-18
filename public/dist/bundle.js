@@ -14,6 +14,8 @@ angular.module('neighborApp', ["ui.router"]).config(function ($stateProvider, $u
     templateUrl: './views/settings.html',
     controller: 'settingsCtrl'
   });
+
+  $urlRouterProvider.otherwise('/');
 });
 
 angular.module('neighborApp').controller('loginCtrl', function ($scope) {
@@ -21,22 +23,34 @@ angular.module('neighborApp').controller('loginCtrl', function ($scope) {
   $scope.login = 'Login Page';
 });
 
-angular.module('neighborApp').controller('mainCtrl', function ($scope, messageService, socket) {
+angular.module('neighborApp').controller('mainCtrl', function ($scope, messageService) {
 
   $scope.postMessage = function (message) {
     messageService.postMessage(message).then(function (response) {
-      $scope.data = response;
+      console.log(response);
+      getMessages();
     });
   };
 
-  $scope.getMessages = function () {
-    messageService.getMessage().the(function (response) {
+  // const getMessages = messageService.getMessages().then(function(response) {
+  //   $scope.messages = response;
+  //   console.log($scope.messages)
+  // })
+
+  var getMessages = function getMessages() {
+    messageService.getMessages().then(function (response) {
       $scope.messages = response;
+      console.log($scope.messages);
     });
   };
+  getMessages();
+
+  // setInterval(function(){
+  //   $scope.getMessages();
+  // }, 1500)
 });
 
-angular.module('neighborApp').service('messageService', function ($http, $rootScope) {
+angular.module('neighborApp').service('messageService', function ($http) {
 
   // var socket = io.connect();
   //   return {
@@ -64,13 +78,13 @@ angular.module('neighborApp').service('messageService', function ($http, $rootSc
     return $http({
       method: "POST",
       url: "/main",
-      data: message
+      data: { message: message }
     }).then(function (response) {
-      return response;
+      return response.data;
     });
   };
 
-  this.getMessage = function () {
+  this.getMessages = function () {
     return $http({
       method: "GET",
       url: "/main"

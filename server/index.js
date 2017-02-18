@@ -1,32 +1,33 @@
 const express = require('express');
-const cors = require('cors');
-const bodyParser = require('body-parser');
 const massive = require('massive');
-const connectionString = 'postgres://postgres@localhost:9001/Neighborhood';
-
+const bodyParser = require('body-parser');
+const cors = require('cors');
+const io = require('socket.io')();
+const url = 'postgres://postgres:password@localhost:5432/Neighborhood';
 const app = module.exports = express();
 
 const massiveInstance = massive.connectSync({
-  connectionString: connectionString
+  connectionString: url
 });
 
 app.set('db', massiveInstance);
 
-app.use(cors());
-app.use(bodyParser());
+console.log(massiveInstance);
 
+//Middleware
+app.use(bodyParser.json());
+app.use(cors());
 app.use(express.static(__dirname + '/../public'));
 
-const messageCtrl = require ('./controller/messageCtrlDB.js');
+const messageCtrl = require('./controller/messageCtrlDB.js');
+
+//Endpoints
+app.get('/main', messageCtrl.getMessages);
+app.post('/main', messageCtrl.postMessage);
 
 
-app.GET('/main', messageCtrl.getMessages);
-app.POST('/main', messageCtrl.postMessage);
-
-
-
-const port = 8080;
-
+//Port Stuff
+const port = 9001;
 app.listen(port, function() {
   console.log('Serving to port ' + port);
 });
